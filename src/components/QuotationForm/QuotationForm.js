@@ -1,34 +1,33 @@
-import React from 'react';
-import FormValues from "../FormValues";
+import React, { useState } from 'react';
+import FormValues from '../FormValues';
 
-const defineLeftZero = (number) => number < 10 ? '0' : '';
+const defineLeftZero = number => (number < 10 ? '0' : '');
 const hours = [...new Array(24)].map((value, index) => `${defineLeftZero(index)}${index}:00`);
 
 function QuotationForm() {
-    let formValues = null; // estamos cometendo uma heresia para explicar um conceito
+    const [formValues, setFormValues] = useState({
+        pickUpAgency: '',
+        pickUpDate: '',
+        pickUpHour: '',
+        specialRequest: ''
+    });
 
-    const submit = (event) => {
+    const handleFieldChange = event => {
+        const { name, value } = event.target;
+        setFormValues({ ...formValues, [name]: value });
+    };
+
+    const submit = event => {
         event.preventDefault();
 
-        const inputNames = ['pickUpAgency', 'pickUpDate', 'pickUpHour', 'specialRequest'];
-        const formInputs = event.target.elements;
-
-        formValues = inputNames.reduce((acc, name) => ({
-            ...acc,
-            [name]: formInputs[name].value
-        }), {});
-
         console.log(formValues);
-    }
+    };
 
     return (
         <>
             <form onSubmit={submit}>
-
                 <div className="row mb-3">
-
                     <div className="col-md-5">
-
                         <label
                             className="form-label"
                             htmlFor="pickUpAgency"
@@ -41,6 +40,8 @@ function QuotationForm() {
                             id="pickUpAgency"
                             name="pickUpAgency"
                             aria-describedby="pickUpAgencyHelp"
+                            value={formValues.pickUpAgency}
+                            onChange={handleFieldChange}
                         />
 
                         <div
@@ -49,11 +50,9 @@ function QuotationForm() {
                         >
                             Selecione o local onde deseja retirar o carro.
                         </div>
-
                     </div>
 
                     <div className="col-md-4">
-
                         <label
                             className="form-label"
                             htmlFor="pickUpDate"
@@ -66,6 +65,8 @@ function QuotationForm() {
                             id="pickUpDate"
                             name="pickUpDate"
                             aria-describedby="pickUpDateHelp"
+                            value={formValues.pickUpDate}
+                            onChange={handleFieldChange}
                         />
 
                         <div
@@ -74,11 +75,9 @@ function QuotationForm() {
                         >
                             Selecione a data de retirada.
                         </div>
-
                     </div>
 
                     <div className="col-md-3">
-
                         <label
                             className="form-label"
                             htmlFor="pickUpHour"
@@ -91,8 +90,10 @@ function QuotationForm() {
                             id="pickUpHour"
                             name="pickUpHour"
                             aria-describedby="pickUpHourHelp"
+                            value={formValues.pickUpHour}
+                            onChange={handleFieldChange}
                         >
-                            {hours.map((value) => (
+                            {hours.map(value => (
                                 <option
                                     key={value}
                                     value={value}
@@ -108,15 +109,11 @@ function QuotationForm() {
                         >
                             Selecione a hora de retirada.
                         </div>
-
                     </div>
-
                 </div>
 
                 <div className="row mb-3">
-
                     <div className="col-md-12">
-
                         <label
                             className="form-label"
                             htmlFor="specialRequest"
@@ -129,18 +126,18 @@ function QuotationForm() {
                             id="specialRequest"
                             name="specialRequest"
                             aria-describedby="specialRequestHelp"
+                            value={formValues.specialRequest}
+                            onChange={handleFieldChange}
                         />
 
                         <div
                             id="specialRequestHelp"
                             className="form-text"
                         >
-                            Esse é um espaço destinado especialmente para você nos contar como podemos lhe atender
-                            melhor
+                            Esse é um espaço destinado especialmente para você nos contar como
+                            podemos lhe atender melhor
                         </div>
-
                     </div>
-
                 </div>
 
                 <div className="row">
@@ -153,13 +150,11 @@ function QuotationForm() {
                         </button>
                     </div>
                 </div>
-
             </form>
 
             <div className="mt-3">
-                <FormValues values={formValues}/>
+                <FormValues values={formValues} />
             </div>
-
         </>
     );
 }
