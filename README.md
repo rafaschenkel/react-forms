@@ -1,17 +1,14 @@
-# Controlled Components
+# Workshop - Formulários em React
 
-Alguns elementos de formulário, no HTML, como inputs, textarea e select, tem seu próprio estado(`state`) e são capazes de atualizá-lo conforme a interação do usuário.
+O objetivo desse projeto é passar conteúdo sobre formulários usando React.
 
-Quando falamos de React o estado interno de um componente só deveria ser modificado pelo `setState`, no caso de class componentes, ou pelo uso do `useState`, no caso de componente de função.
+## Como usar esse repositório
 
-Ou seja, o React deveria ter o `controle` do estado do componente e os inputs de formulário que são controlados pelo estado do componente React são chamados de `controlled components`.
+Cada conteúdo vai ser dividido em branchs e cada branch tem seu próprio `README.md`, explicando o que foi feito.
 
-Nesse tópico nosso objetivo é demonstrar como fazer isso sem alguma lib que abstraia isso para nós.
+Os conteúdos serão:
 
-Na [documentação oficial](https://reactjs.org/docs/forms.html) do React você pode aprofundar um pouco mais nesse assunto.
-
-## Controlando os inputs do nosso formulário
-
+<<<<<<< HEAD
 A primeira coisa que precisamos fazer é atualizar nosso componente para que o React passe a gerenciar o estado dos nossos inputs.
 
 Para fazer isso vamos adicionar o hook `useState` com os valores iniciais do nosso formulário.
@@ -195,3 +192,8 @@ return (
     </>
 );
 ```
+=======
+* 1-controlled-components
+* 2-formik
+* 3-validacao-e-feedback
+>>>>>>> main
