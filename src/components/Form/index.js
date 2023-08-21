@@ -1,4 +1,4 @@
-import InputField from "./InputField";
-import TextareaField from "./TextareaField";
+import InputField from './InputField';
+import TextareaField from './TextareaField';
 
-export {InputField, TextareaField};
+export { InputField, TextareaField };

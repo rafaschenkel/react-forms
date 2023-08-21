@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function TextareaField({id, error, hint, label, touched, ...textareaProps}) {
+function TextareaField({ id, error, hint, label, touched, ...textareaProps }) {
     return (
         <>
             <label
@@ -13,7 +13,7 @@ function TextareaField({id, error, hint, label, touched, ...textareaProps}) {
 
             <textarea
                 className={classnames('form-control', {
-                    'is-invalid': !!(error)
+                    'is-invalid': !!error
                 })}
                 id={id}
                 name={id}
@@ -21,20 +21,16 @@ function TextareaField({id, error, hint, label, touched, ...textareaProps}) {
                 {...textareaProps}
             />
 
-            {
-                error
-                    ? <div className="invalid-feedback">
-                        {error}
-                    </div>
-                    : <div
-                        id={`${id}Help`}
-                        className="form-text"
-                    >
-                        {hint}
-                    </div>
-            }
-
-
+            {error ? (
+                <div className="invalid-feedback">{error}</div>
+            ) : (
+                <div
+                    id={`${id}Help`}
+                    className="form-text"
+                >
+                    {hint}
+                </div>
+            )}
         </>
     );
 }

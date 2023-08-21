@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-function InputField({id, error, hint, label, touched, ...inputProps}) {
+function InputField({ id, error, hint, label, touched, ...inputProps }) {
     return (
         <>
             <label
@@ -13,7 +13,7 @@ function InputField({id, error, hint, label, touched, ...inputProps}) {
 
             <input
                 className={classnames('form-control', {
-                    'is-invalid': !!(error) && touched
+                    'is-invalid': !!error && touched
                 })}
                 id={id}
                 name={id}
@@ -21,19 +21,16 @@ function InputField({id, error, hint, label, touched, ...inputProps}) {
                 {...inputProps}
             />
 
-            {
-                error && touched
-                    ? <div className="invalid-feedback">
-                        {error}
-                    </div>
-                    : <div
-                        id={`${id}Help`}
-                        className="form-text"
-                    >
-                        {hint}
-                    </div>
-            }
-
+            {error && touched ? (
+                <div className="invalid-feedback">{error}</div>
+            ) : (
+                <div
+                    id={`${id}Help`}
+                    className="form-text"
+                >
+                    {hint}
+                </div>
+            )}
         </>
     );
 }
