@@ -1,4 +1,5 @@
 import React from 'react';
+
 import FormValues from '../FormValues';
 import { useFormik } from 'formik';
 import InputField from '../Forms/InputField';
@@ -49,7 +50,7 @@ function QuotationForm() {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={submit}>
                 <div className="row mb-3">
                     <div className="col-md-5">
                         <InputField
