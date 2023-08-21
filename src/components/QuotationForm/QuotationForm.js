@@ -4,19 +4,25 @@ import { useFormik } from 'formik';
 import InputField from '../Forms/InputField';
 import SelectField from '../Forms/SelectField';
 import TextareaField from '../Forms/TextareaField';
+import Loading from '../Loading';
+
+import { object as schema, string } from 'yup';
 
 const defineLeftZero = number => (number < 10 ? '0' : '');
 const hours = [...new Array(24)].map((value, index) => `${defineLeftZero(index)}${index}:00`);
 
-const validate = values => {
-    const errors = {};
+const sleep = (time = 1000) => new Promise(resolve => setTimeout(() => resolve(true), time));
 
-    if (!values.pickUpAgency) errors.pickUpAgency = 'É preciso informar o local de retirada!';
-    if (!values.pickUpDate) errors.pickUpDate = 'É preciso informar a data!';
-    if (!values.pickUpHour) errors.pickUpHour = 'É preciso informar a hora!';
-
-    return errors;
-};
+const validationSchema = schema({
+    pickUpAgency: string().required('É preciso informar o local de retirada!'),
+    pickUpDate: string()
+        .required('É preciso informar a data!')
+        .matches(
+            /^(0[1-9]|[12][0-9]|3[0-1])[- /.](0[1-9]|1[0-12])[- /.](20)\d\d$/,
+            'A data precisa estar no formato dd/mm/aaaa'
+        ),
+    pickUpHour: string().required('É preciso informar a hora!')
+});
 
 function QuotationForm() {
     const {
@@ -25,7 +31,8 @@ function QuotationForm() {
         handleBlur,
         touched,
         errors,
-        handleSubmit
+        handleSubmit,
+        isSubmitting
     } = useFormik({
         initialValues: {
             pickUpAgency: '',
@@ -33,8 +40,9 @@ function QuotationForm() {
             pickUpHour: '',
             specialRequest: ''
         },
-        validate,
-        onSubmit: values => {
+        validationSchema,
+        onSubmit: async values => {
+            await sleep(3000);
             console.log(values);
         }
     });
@@ -105,8 +113,14 @@ function QuotationForm() {
                         <button
                             className="btn btn-primary"
                             type="submit"
+                            disabled={isSubmitting}
                         >
-                            Enviar
+                            Enviar{' '}
+                            {!!isSubmitting && (
+                                <span className="mx-2">
+                                    <Loading />
+                                </span>
+                            )}
                         </button>
                     </div>
                 </div>
